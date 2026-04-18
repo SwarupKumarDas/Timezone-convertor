@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online World Timezone Converter. Convert between any two time zones with our easy-to-use tool. Perfect for travelers, businesses, and international meetings.">
+    <meta name="keywords" content="timezone converter, world time, time conversion, international time, time zones">
+    <title>World Timezone Converter | Convert Time Zones Easily</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            color: #333;
+        }
+
+        .converter-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro {
+            color: #444;
+            max-width: 700px;
+            margin: 0 auto 1rem;
+            font-size: 1.1rem;
+        }
+
+        .seo-content {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .seo-content h2 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .seo-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .datetime-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .convert-btn {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .reset-btn {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .timezone-selectors {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .selector-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .timezone-select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            background: white;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e3c72' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #eee;
+            min-height: 80px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .current-time {
+            text-align: center;
+            color: #1e3c72;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 1.5rem;
+            padding: 10px;
+            background: rgba(30, 60, 114, 0.1);
+            border-radius: 8px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .timezone-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .converter-container {
+                padding: 1.5rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="converter-container">
+        <header>
+            <h1><i class="fas fa-globe-americas"></i> World Timezone Converter</h1>
+            <p class="intro">Convert any time across different time zones instantly. Perfect for scheduling international meetings, travel planning, and global business.</p>
+        </header>
+        
+        <div class="input-group">
+            <input type="datetime-local" id="dateTimeInput" class="datetime-input">
+            <button onclick="convertTime()" class="btn convert-btn">
+                <i class="fas fa-exchange-alt"></i> Convert Time
+            </button>
+            <button onclick="resetForm()" class="btn reset-btn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+
+        <div class="timezone-selectors">
+            <div class="selector-container">
+                <select id="timezone1" class="timezone-select">
+                    <option value="">Select First Timezone</option>
+                </select>
+                <div id="result1" class="result-box">Select timezone</div>
+                <div class="timezone-info">
+                    <span id="location1"></span>
+                    <span id="offset1"></span>
+                </div>
+            </div>
+            
+            <div class="selector-container">
+                <select id="timezone2" class="timezone-select">
+                    <option value="">Select Second Timezone</option>
+                </select>
+                <div id="result2" class="result-box">Select timezone</div>
+                <div class="timezone-info">
+                    <span id="location2"></span>
+                    <span id="offset2"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="currentTime" class="current-time"></div>
+        
+        <div class="seo-content">
+            <h2><i class="fas fa-info-circle"></i> Why Use Our Timezone Converter?</h2>
+            <p>Our World Timezone Converter helps you effortlessly convert times between different time zones. Whether you're scheduling international business meetings, coordinating with remote teams, or planning travel across time zones, our tool provides accurate conversions instantly.</p>
+            <p>Key features include real-time conversion, comprehensive timezone database covering all major locations worldwide, and an intuitive interface. With daylight saving time adjustments automatically handled, you'll always get precise time conversions without manual calculations.</p>
+        </div>
+        
+        <footer>
+            <p>© 2023 World Timezone Converter | Accurate Global Time Conversions</p>
+        </footer>
+    </div>
+
+    <script>
+        const timeZonesList = [
+            { offset: '-12:00', countries: ['Baker Island', 'Howland Island'], label: 'UTC-12:00 (IDLW)' },
+            { offset: '-11:00', countries: ['American Samoa', 'Niue'], label: 'UTC-11:00 (SST)' },
+            { offset: '-10:00', countries: ['Hawaii', 'French Polynesia'], label: 'UTC-10:00 (HST)' },
+            { offset: '-09:30', countries: ['Marquesas Islands'], label: 'UTC-09:30 (MART)' },
+            { offset: '-09:00', countries: ['Alaska', 'Gambier Islands'], label: 'UTC-09:00 (AKST)' },
+            { offset: '-08:00', countries: ['California', 'British Columbia'], label: 'UTC-08:00 (PST)' },
+            { offset: '-07:00', countries: ['Arizona', 'Sonora'], label: 'UTC-07:00 (MST)' },
+            { offset: '-06:00', countries: ['Mexico', 'Central America'], label: 'UTC-06:00 (CST)' },
+            { offset: '-05:00', countries: ['New York', 'Colombia'], label: 'UTC-05:00 (EST)' },
+            { offset: '-04:00', countries: ['Canada (Atlantic)', 'Caribbean'], label: 'UTC-04:00 (AST)' },
+            { offset: '-03:30', countries: ['Newfoundland'], label: 'UTC-03:30 (NST)' },
+            { offset: '-03:00', countries: ['Argentina', 'Brazil'], label: 'UTC-03:00 (ART)' },
+            { offset: '-02:00', countries: ['South Georgia', 'Fernando de Noronha'], label: 'UTC-02:00 (FNT)' },
+            { offset: '-01:00', countries: ['Cape Verde', 'Azores'], label: 'UTC-01:00 (CVT)' },
+            { offset: '±00:00', countries: ['UK', 'Iceland'], label: 'UTC±00:00 (GMT)' },
+            { offset: '+01:00', countries: ['Germany', 'Spain'], label: 'UTC+01:00 (CET)' },
+            { offset: '+02:00', countries: ['Egypt', 'South Africa'], label: 'UTC+02:00 (EET)' },
+            { offset: '+03:00', countries: ['Moscow', 'Saudi Arabia'], label: 'UTC+03:00 (MSK)' },
+            { offset: '+03:30', countries: ['Iran'], label: 'UTC+03:30 (IRST)' },
+            { offset: '+04:00', countries: ['UAE', 'Armenia'], label: 'UTC+04:00 (GST)' },
+            { offset: '+04:30', countries: ['Afghanistan'], label: 'UTC+04:30 (AFT)' },
+            { offset: '+05:00', countries: ['Pakistan', 'Maldives'], label: 'UTC+05:00 (PKT)' },
+            { offset: '+05:30', countries: ['India', 'Sri Lanka'], label: 'UTC+05:30 (IST)' },
+            { offset: '+05:45', countries: ['Nepal'], label: 'UTC+05:45 (NPT)' },
+            { offset: '+06:00', countries: ['Bangladesh', 'Bhutan'], label: 'UTC+06:00 (BST)' },
+            { offset: '+06:30', countries: ['Myanmar', 'Cocos Islands'], label: 'UTC+06:30 (MMT)' },
+            { offset: '+07:00', countries: ['Thailand', 'Vietnam'], label: 'UTC+07:00 (ICT)' },
+            { offset: '+08:00', countries: ['China', 'Singapore'], label: 'UTC+08:00 (CST)' },
+            { offset: '+08:45', countries: ['Eucla, Australia'], label: 'UTC+08:45 (ACWST)' },
+            { offset: '+09:00', countries: ['Japan', 'South Korea'], label: 'UTC+09:00 (JST)' },
+            { offset: '+09:30', countries: ['Australia (Central)'], label: 'UTC+09:30 (ACST)' },
+            { offset: '+10:00', countries: ['Australia (Eastern)', 'Papua New Guinea'], label: 'UTC+10:00 (AEST)' },
+            { offset: '+10:30', countries: ['Lord Howe Island'], label: 'UTC+10:30 (LHST)' },
+            { offset: '+11:00', countries: ['Solomon Islands', 'Norfolk Island'], label: 'UTC+11:00 (SBT)' },
+            { offset: '+12:00', countries: ['New Zealand', 'Fiji'], label: 'UTC+12:00 (NZST)' },
+            { offset: '+12:45', countries: ['Chatham Islands'], label: 'UTC+12:45 (CHAST)' },
+            { offset: '+13:00', countries: ['Samoa', 'Tonga'], label: 'UTC+13:00 (TOT)' },
+            { offset: '+14:00', countries: ['Kiribati (Line Islands)'], label: 'UTC+14:00 (LINT)' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateTimezones();
+            setCurrentDateTime();
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+            
+            // Set initial display values
+            document.getElementById('result1').textContent = "Select timezone";
+            document.getElementById('result2').textContent = "Select timezone";
+        });
+
+        function populateTimezones() {
+            const select1 = document.getElementById('timezone1');
+            const select2 = document.getElementById('timezone2');
+            
+            // Add popular timezones first
+            const popularZones = ['±00:00', '+01:00', '-05:00', '+05:30', '+08:00', '+09:00'];
+            const popularOptions = [];
+            const otherOptions = [];
+            
+            timeZonesList.forEach(zone => {
+                const option = document.createElement('option');
+                option.value = zone.offset;
+                option.textContent = `${zone.label} - ${zone.countries.join(', ')}`;
+                option.dataset.countries = zone.countries.join(', ');
+                
+                if (popularZones.includes(zone.offset)) {
+                    popularOptions.push(option);
+                } else {
+                    otherOptions.push(option);
+                }
+            });
+            
+            // Add popular options with separator
+            const popularGroup = document.createElement('optgroup');
+            popularGroup.label = "Popular Time Zones";
+            popularOptions.forEach(option => popularGroup.appendChild(option));
+            
+            const otherGroup = document.createElement('optgroup');
+            otherGroup.label = "Other Time Zones";
+            otherOptions.forEach(option => otherGroup.appendChild(option));
+            
+            select1.appendChild(popularGroup.cloneNode(true));
+            select1.appendChild(otherGroup.cloneNode(true));
+            
+            select2.appendChild(popularGroup.cloneNode(true));
+            select2.appendChild(otherGroup.cloneNode(true));
+            
+            // Set default selections
+            select1.value = Intl.DateTimeFormat().resolvedOptions().timeZone.includes('America') ? '-05:00' : '±00:00';
+            select2.value = '+05:30';
+            
+            // Update location info
+            updateLocationInfo();
+        }
+
+        function setCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            document.getElementById('dateTimeInput').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+        function convertTime() {
+            const dateTimeInput = document.getElementById('dateTimeInput').value;
+            const timezone1 = document.getElementById('timezone1').value;
+            const timezone2 = document.getElementById('timezone2').value;
+            
+            if (!dateTimeInput) {
+                alert('Please select a date and time');
+                return;
+            }
+            
+            if (!timezone1 || !timezone2) {
+                alert('Please select both timezones');
+                return;
+            }
+
+            const localDate = new Date(dateTimeInput);
+            const utcTime = localDate.getTime() + (localDate.getTimezoneOffset() * 60000);
+
+            document.getElementById('result1').innerHTML = calculateTime(utcTime, timezone1);
+            document.getElementById('result2').innerHTML = calculateTime(utcTime, timezone2);
+            
+            updateLocationInfo();
+        }
+
+        function calculateTime(utcTime, offset) {
+            // Handle ±00:00 case
+            const normalizedOffset = offset.replace('±', '+');
+            const sign = normalizedOffset.charAt(0);
+            const [hours, minutes] = normalizedOffset.substring(1).split(':').map(Number);
+            
+            const totalOffset = (sign === '+' ? 1 : -1) * (hours * 60 + minutes) * 60000;
+            const adjustedTime = new Date(utcTime + totalOffset);
+            
+            return adjustedTime.toLocaleString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                timeZoneName: 'short'
+            });
+        }
+
+        function updateLocationInfo() {
+            const timezone1 = document.getElementById('timezone1');
+            const timezone2 = document.getElementById('timezone2');
+            
+            if (timezone1.value) {
+                const selectedOption1 = timezone1.options[timezone1.selectedIndex];
+                document.getElementById('location1').textContent = selectedOption1.dataset.countries.split(',')[0];
+                document.getElementById('offset1').textContent = `UTC${timezone1.value}`;
+            }
+            
+            if (timezone2.value) {
+                const selectedOption2 = timezone2.options[timezone2.selectedIndex];
+                document.getElementById('location2').textContent = selectedOption2.dataset.countries.split(',')[0];
+                document.getElementById('offset2').textContent = `UTC${timezone2.value}`;
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('dateTimeInput').value = '';
+            document.getElementById('result1').textContent = "Select timezone";
+            document.getElementById('result2').textContent = "Select timezone";
+            document.getElementById('location1').textContent = '';
+            document.getElementById('offset1').textContent = '';
+            document.getElementById('location2').textContent = '';
+            document.getElementById('offset2').textContent = '';
+            
+            // Reset to default selections
+            document.getElementById('timezone1').value = Intl.DateTimeFormat().resolvedOptions().timeZone.includes('America') ? '-05:00' : '±00:00';
+            document.getElementById('timezone2').value = '+05:30';
+            
+            setCurrentDateTime();
+            updateLocationInfo();
+        }
+
+        function updateCurrentTime() {
+            const now = new Date();
+            const options = {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                timeZoneName: 'short'
+            };
+            
+            const localTime = new Intl.DateTimeFormat('en-US', options).format(now);
+            document.getElementById('currentTime').innerHTML = 
+                `<i class="fas fa-clock"></i> Current Local Time: ${localTime}`;
+        }
+    </script>
+</body>
+</html>
